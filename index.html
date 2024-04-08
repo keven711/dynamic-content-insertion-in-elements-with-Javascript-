@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>js</title>
+    <style>
+        .box {
+            height: 125px;
+            border: 2px solid;
+            display: flex;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="box">
+        </div>
+    </div>
+
+    <script>
+        const a = document.querySelector(".box");
+
+        const img = document.createElement("img");
+        img.classList.add("main-img");
+        img.src = "https://th.bing.com/th/id/OIP.c17XAqg6srb_lo1ElbyJSgAAAA?rs=1&pid=ImgDetMain";
+        document.querySelector(".box").appendChild(img);
+
+        function maincontent(title, chName, views, timeold, duration) {
+
+            let contentarray = [title, chName, views, timeold, duration];
+
+            for (let i = 0; i < contentarray.length; i++) {
+
+                const element = contentarray[i];
+                const newdiv = document.createElement("div");
+                document.querySelector(".box").appendChild(newdiv);
+                const textNode = document.createTextNode(element);
+                // newdiv.textContent = contentarray;
+                newdiv.appendChild(textNode);
+
+            }
+        }
+
+        maincontent("intro to backend", "CodeWithSuleman", "4 M views", "7 months ago", "04:04");
+    </script>
+</body>
+
+</html>
