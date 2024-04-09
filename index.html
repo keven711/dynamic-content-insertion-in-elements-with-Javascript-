@@ -4,48 +4,205 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>js</title>
+    <title>Dynamic Containers</title>
     <style>
         .box {
             height: 125px;
             border: 2px solid;
             display: flex;
+            background-color: rgb(165 165 165 / 25%);
+            border-radius: 13px;
+        }
+
+        .thumbnail img {
+            height: 120px;
+            border-radius: 13px;
+        }
+
+        .main-content {
+            margin: 20px;
+        }
+
+        .main-content span {
+            display: inline-flex;
+            color: white;
+            margin: 2px;
+        }
+
+        .main-content span:nth-child(1) {
+            display: block;
+            text-transform: capitalize;
+            font-size: 30px;
+        }
+
+        .main-content span:nth-child(2) {
+            color: rgb(158, 146, 146);
+            display: block;
+            text-transform: capitalize;
+            font-size: 20px;
+            margin-top: 10px;
+        }
+
+        .main-content span:nth-child(3),
+        .main-content span:nth-child(4) {
+            padding-right: 12px;
+            margin-top: 8px;
+        }
+
+        .main-content span:nth-child(5) {
+            position: absolute;
+            left: 175px;
+            background-color: rgb(0, 0, 0);
+            color: rgb(255, 255, 255);
+        }
+
+        /* Styles for tablets */
+        @media (max-width: 768px) {
+            .box {
+                flex-direction: column;
+                height: auto;
+            }
+
+            .thumbnail {
+                width: 100%;
+                height: auto;
+            }
+
+            .thumbnail img {
+                width: 100%;
+                height: 240px;
+                /* Make image responsive */
+            }
+
+            .main-content {
+                margin: 10px;
+            }
+
+            .main-content span {
+                font-size: 18px;
+                /* Adjust font size */
+            }
+
+            .duration {
+                font-size: 14px;
+                /* Adjust font size for better visibility */
+                padding: 2px 4px;
+                /* Adjust padding */
+                bottom: 20px;
+                /* Positioning from the bottom */
+                right: 20px;
+                /* Positioning from the right */
+            }
+        }
+
+        /* Styles for mobile phones */
+        @media (max-width: 480px) {
+            .thumbnail img {
+                width: 100%;
+                height: 200px;
+                /* Make image responsive */
+            }
+
+            .main-content span {
+                font-size: 14px;
+                /* Further reduce font size for smaller screens */
+            }
+
+            .main-content span:nth-child(1) {
+                font-size: 22px;
+            }
+
+            .main-content span:nth-child(2) {
+                font-size: 16px;
+            }
+
+            .duration {
+                font-size: 12px;
+                /* Reduce font size for smaller screens */
+                padding: 1px 3px;
+                /* Reduce padding */
+                bottom: 3px;
+                /* Closer to the bottom edge */
+                right: 3px;
+                /* Closer to the right edge */
+            }
         }
     </style>
 </head>
 
 <body>
 
-    <div class="container">
-        <div class="box">
-        </div>
-    </div>
-
+    <div class="container"></div>
     <script>
-        const a = document.querySelector(".box");
+        document.body.style.backgroundColor = "#0f0f0f";
 
-        const img = document.createElement("img");
-        img.classList.add("main-img");
-        img.src = "https://th.bing.com/th/id/OIP.c17XAqg6srb_lo1ElbyJSgAAAA?rs=1&pid=ImgDetMain";
-        document.querySelector(".box").appendChild(img);
+        function createContainer(title, chName, views, timeold, duration, imgUrl) {
+            const container = document.querySelector(".container");
+            const box = document.createElement("div");
+            box.classList.add("box");
+            container.appendChild(box);
 
-        function maincontent(title, chName, views, timeold, duration) {
+            const thumbnail = document.createElement("div");
+            thumbnail.classList.add("thumbnail");
+            box.appendChild(thumbnail);
 
-            let contentarray = [title, chName, views, timeold, duration];
+            const img = document.createElement("img");
+            img.src = imgUrl;
+            thumbnail.appendChild(img);
 
-            for (let i = 0; i < contentarray.length; i++) {
+            const mainContent = document.createElement("span");
+            mainContent.classList.add("main-content");
+            box.appendChild(mainContent);
 
-                const element = contentarray[i];
-                const newdiv = document.createElement("div");
-                document.querySelector(".box").appendChild(newdiv);
-                const textNode = document.createTextNode(element);
-                // newdiv.textContent = contentarray;
-                newdiv.appendChild(textNode);
+            const contents = [title, chName, views, timeold, duration];
 
-            }
+            contents.forEach(content => {
+                const span = document.createElement("span");
+                span.textContent = content;
+                mainContent.appendChild(span);
+            });
         }
 
-        maincontent("intro to backend", "CodeWithSuleman", "4 M views", "7 months ago", "04:04");
+        // Array of objects containing different content and image URLs
+        const videos = [
+            {
+                title: "Intro to Backend JS",
+                chName: "Code With Harry",
+                views: "4 M views",
+                timeold: "7 months ago",
+                duration: "04:04",
+                imgUrl: "https://th.bing.com/th/id/OIP.c17XAqg6srb_lo1ElbyJSgAAAA?rs=1&pid=ImgDetMain"
+            },
+            {
+                title: "what about Dhruv Rathee",
+                chName: "Deshbkhat",
+                views: "2.5 M views",
+                timeold: "4 days ago",
+                duration: "12:23",
+                imgUrl: "https://i.ytimg.com/vi/YdKwr0l176M/hqdefault.jpg?sqp=-oaymwEXCOADEI4CSFryq4qpAwkIARUAAIhCGAE=&rs=AOn4CLCCjoZlSp39pSM3tMiQKEbP24ORnQ"
+            },
+            {
+                title: "Why Young Men Are Getting Heart Attacks",
+                chName: "Mohak Mangal",
+                views: "1.6 M views",
+                timeold: "2 months ago",
+                duration: "30:20",
+                imgUrl: "https://i.ytimg.com/an_webp/v9DG6q3I7U8/mqdefault_6s.webp?du=3000&sqp=COWQ07AG&rs=AOn4CLCasgOTORHTPxHhgLJTYaIfZkZj1A"
+            },
+            {
+                title: "Jacqueline-Sukesh Scandal",
+                chName: "Nitish Rajput",
+                views: "8.7 M views",
+                timeold: "1 year ago",
+                duration: "21:19",
+                imgUrl: "https://i.ytimg.com/an_webp/rPEXA3ghQwg/mqdefault_6s.webp?du=3000&sqp=CJig07AG&rs=AOn4CLCfHnrU06w3UoDv3KIHGI6Wp73jnA"
+            }
+            // Add more video objects here with different content and imgUrl
+        ];
+
+        videos.forEach(video => {
+            createContainer(video.title, video.chName, video.views, video.timeold, video.duration, video.imgUrl);
+        });
     </script>
 </body>
 
